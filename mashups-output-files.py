@@ -1,4 +1,5 @@
 import itertools
+from pathlib import Path
 import random
 import textwrap
 
@@ -21,7 +22,10 @@ def mashup(first_book, second_book):
     wrapped = textwrap.wrap(text)
     final = '\n'.join(wrapped)
 
-    return final
+    output_path = Path(f'{first_book.stem}+{second_book.stem}.txt')
+    output_path.write_text(final)
+
+    htmap.transfer_output_files(output_path)
 
 
 if __name__ == "__main__":
@@ -41,3 +45,6 @@ if __name__ == "__main__":
     map = map_builder.map
 
     map.wait(show_progress_bar = True)
+
+    for op in map.output_files:
+        print(list(op.iterdir()))
