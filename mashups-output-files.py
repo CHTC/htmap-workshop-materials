@@ -46,5 +46,8 @@ if __name__ == "__main__":
 
     map.wait(show_progress_bar = True)
 
+    target = Path.cwd() / 'mashed_up_books'
+    target.mkdir(exist_ok = True)
     for op in map.output_files:
-        print(list(op.iterdir()))
+        mashed_up = list(op.iterdir())[0]
+        mashed_up.rename(target / mashed_up.name)
