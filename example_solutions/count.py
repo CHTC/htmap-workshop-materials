@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import htmap
+
 
 def count(path_to_book):
     text = path_to_book.read_text()
@@ -14,5 +16,10 @@ def count(path_to_book):
 
 
 if __name__ == "__main__":
-    books_dir = Path.cwd() / 'books'
-    print(count(books_dir / 'frankenstein.txt'))
+    books_dir = htmap.TransferPath.cwd() / 'books'
+
+    book_paths = list(books_dir.iterdir())
+
+    m = htmap.map(count, book_paths, tag = 'counts')
+
+    print(m.tag)
